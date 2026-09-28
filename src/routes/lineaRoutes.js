@@ -1,0 +1,10 @@
+const express = require('express');
+const ctrl = require('../controllers/lineaController');
+const auth = require('../middlewares/authMiddleware');
+const router = express.Router();
+router.use(auth.verifyToken);
+router.get('/', ctrl.obtenerLineas);
+router.post('/', ctrl.crearLinea);
+router.put('/:id', ctrl.actualizarLinea);
+router.delete('/:id', ctrl.eliminarLinea);
+module.exports = router;

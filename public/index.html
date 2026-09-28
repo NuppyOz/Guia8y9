@@ -1,0 +1,6 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>API Tesis UNI</title><link rel="stylesheet" href="styles.css"></head><body>
+<main><h1>Gestión de Líneas de Investigación</h1>
+<section id="login-section"><h2>Iniciar sesión</h2><form id="formLogin"><label>Email<input id="email" type="email" required></label><label>Contraseña<input id="password" type="password" required minlength="8"></label><button>Ingresar</button></form></section>
+<section id="app-section" hidden><div class="toolbar"><h2>Líneas de investigación</h2><button id="logout" type="button">Cerrar sesión</button></div>
+<form id="formLinea"><label>Nombre<input id="nombreLinea" required></label><label>Código<input id="codigoLinea" required></label><button>Crear línea</button></form>
+<div id="spinner" class="spinner" hidden aria-live="polite">Cargando...</div><div id="mensaje" role="status" aria-live="polite"></div><div id="lista-lineas"></div></section></main><script src="app.js"></script></body></html>

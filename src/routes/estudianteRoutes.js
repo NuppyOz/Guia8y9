@@ -1,0 +1,11 @@
+const express = require('express');
+const ctrl = require('../controllers/estudianteController');
+const auth = require('../middlewares/authMiddleware');
+const router = express.Router();
+router.use(auth.verifyToken);
+router.get('/', ctrl.obtenerEstudiantes);
+router.get('/:id', ctrl.obtenerEstudiante);
+router.post('/', ctrl.crearEstudiante);
+router.put('/:id', ctrl.actualizarEstudiante);
+router.delete('/:id', ctrl.eliminarEstudiante);
+module.exports = router;

@@ -1,0 +1,24 @@
+{
+  "info": {"name":"API Tesis UNI - Laboratorio 8 y 9","schema":"https://schema.getpostman.com/json/collection/v2.1.0/collection.json"},
+  "variable": [{"key":"baseUrl","value":"http://localhost:5000"},{"key":"token","value":""},{"key":"lineaId","value":""},{"key":"estudianteId","value":""}],
+  "item": [
+    {"name":"Auth","item":[
+      {"name":"Registrar usuario","request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Usuario Laboratorio\",\n  \"email\": \"laboratorio@uni.edu.ni\",\n  \"password\": \"ClaveSegura123\"\n}"},"url":"{{baseUrl}}/api/auth/register"}},
+      {"name":"Login","event":[{"listen":"test","script":{"exec":["if (pm.response.code === 200) { pm.collectionVariables.set('token', pm.response.json().token); }"]}}],"request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"}],"body":{"mode":"raw","raw":"{\n  \"email\": \"laboratorio@uni.edu.ni\",\n  \"password\": \"ClaveSegura123\"\n}"},"url":"{{baseUrl}}/api/auth/login"}},
+      {"name":"Perfil protegido","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/auth/profile"}}
+    ]},
+    {"name":"Lineas de investigacion","item":[
+      {"name":"Crear linea","event":[{"listen":"test","script":{"exec":["if (pm.response.code === 201) { pm.collectionVariables.set('lineaId', pm.response.json()._id); }"]}}],"request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"},{"key":"Authorization","value":"Bearer {{token}}"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Inteligencia Artificial\",\n  \"codigo\": \"IA-01\"\n}"},"url":"{{baseUrl}}/api/lineas"}},
+      {"name":"Listar lineas","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/lineas"}},
+      {"name":"Actualizar linea","request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"},{"key":"Authorization","value":"Bearer {{token}}"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Inteligencia Artificial Aplicada\",\n  \"activa\": true\n}"},"url":"{{baseUrl}}/api/lineas/{{lineaId}}"}},
+      {"name":"Eliminar linea","request":{"method":"DELETE","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/lineas/{{lineaId}}"}}
+    ]},
+    {"name":"Estudiantes","item":[
+      {"name":"Crear estudiante","event":[{"listen":"test","script":{"exec":["if (pm.response.code === 201) { pm.collectionVariables.set('estudianteId', pm.response.json()._id); }"]}}],"request":{"method":"POST","header":[{"key":"Content-Type","value":"application/json"},{"key":"Authorization","value":"Bearer {{token}}"}],"body":{"mode":"raw","raw":"{\n  \"carnet\": \"2026-0001U\",\n  \"nombre\": \"Estudiante de prueba\",\n  \"carrera\": \"Ingeniería en Sistemas\",\n  \"lineaInvestigacion\": \"{{lineaId}}\"\n}"},"url":"{{baseUrl}}/api/estudiantes"}},
+      {"name":"Listar estudiantes","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/estudiantes"}},
+      {"name":"Obtener estudiante con populate","request":{"method":"GET","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/estudiantes/{{estudianteId}}"}},
+      {"name":"Actualizar estudiante","request":{"method":"PUT","header":[{"key":"Content-Type","value":"application/json"},{"key":"Authorization","value":"Bearer {{token}}"}],"body":{"mode":"raw","raw":"{\n  \"nombre\": \"Estudiante actualizado\"\n}"},"url":"{{baseUrl}}/api/estudiantes/{{estudianteId}}"}},
+      {"name":"Eliminar estudiante","request":{"method":"DELETE","header":[{"key":"Authorization","value":"Bearer {{token}}"}],"url":"{{baseUrl}}/api/estudiantes/{{estudianteId}}"}}
+    ]}
+  ]
+}
